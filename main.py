@@ -1,8 +1,8 @@
 from tokenize import String
 from typing import Optional
 from fastapi import FastAPI
-from pydantic import BaseModel
 import uvicorn
+from .blog import schemas
 
 app = FastAPI()
 
@@ -25,14 +25,10 @@ def comments(id):
     return {'data':{'1','2'},
             'id':id}
 
-class Blog(BaseModel):
-    title: str
-    body: str
-    published: Optional[bool]
 
  
 @app.post('/blog')
-def create_blog(request:Blog):
+def create_blog(request:schemas.Blog):
     # return request
     return {'data':f'Blog Created! it\'s with title {request.title}'}
 
